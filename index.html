@@ -5,82 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Visakaa Builders & Promoters | V9.0 Interactive SPA</title>
     
-    <!-- External Frameworks -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { green: '#00B100', dark: '#006400', light: '#e6f7e6' }
-                    },
-                    fontFamily: { sans: ['Poppins', 'sans-serif'], heading: ['Montserrat', 'sans-serif'] }
-                }
-            }
-        }
-    </script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     
-    <style>
-        /* CRITICAL: Suppress system cursor */
-        html, body, *, a, button { cursor: none !important; }
-        
-        body { overflow-x: hidden; background-color: #fdfdfd; width: 100%; }
-        
-        /* Dual-Element Kinetic Cursor with Inversion Logic */
-        .cursor-dot { 
-            width: 8px; height: 8px; 
-            background-color: #fff; /* White base for inversion */
-            mix-blend-mode: difference; /* Ensures visibility on green */
-            border-radius: 50%; position: fixed; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); 
-        }
-        .cursor-follower { 
-            width: 40px; height: 40px; 
-            border: 2px solid #fff; 
-            mix-blend-mode: difference;
-            border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s ease-out; 
-        }
-        
-        /* Dynamic Scroll Parallax Layer */
-        .flower-field-bg { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1465146344425-f00d5f5c8f07?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat; 
-            z-index: -1; opacity: 0; transition: opacity 0.6s ease; 
-        }
-        
-        /* Navigation Glow Effect */
-        .nav-link { transition: all 0.3s ease; position: relative; }
-        .nav-link.active { 
-            color: #00B100 !important; 
-            text-shadow: 0 0 15px rgba(0, 177, 0, 0.8), 0 0 5px rgba(0, 177, 0, 0.5); 
-            font-weight: 800;
-        }
-        .nav-link.active::after {
-            content: ''; position: absolute; bottom: -5px; left: 0; width: 100%; height: 2px;
-            background: #00B100; box-shadow: 0 0 10px #00B100;
-        }
-
-        /* UI Components */
-        .glass-panel { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border: 1px solid rgba(0, 177, 0, 0.1); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); }
-        .glass-hero { background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        
-        .video-wrapper { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 1.5rem; background: #000; box-shadow: 0 20px 50px rgba(0,0,0,0.1); }
-        .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
-        
-        #scroll-progress { position: fixed; top: 0; left: 0; height: 4px; background: #00B100; z-index: 10001; width: 0%; transition: width 0.1s; }
-        
-        .text-shadow-hero { text-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-    </style>
-    
-    <!-- Application Structure Plan:
-         1. Hero: Flexbox centering with min-h-[100dvh] for mobile optimization.
-         2. Navigation: Active ScrollSpy buttons with glow effects.
-         3. Cursor: Mix-blend-mode implementation to prevent "submerging" in green assets.
-         4. Content: Z-Pattern Grid with dual-media suites for commercial ventures.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body class="text-gray-800 antialiased selection:bg-brand-green selection:text-white">
     
@@ -89,27 +19,21 @@
     <div class="cursor-follower hidden md:block" id="cursor-follower"></div>
     <div class="flower-field-bg" id="flowerBg"></div>
 
-    <!-- 1. NAVIGATION HEADER -->
     <nav class="fixed top-0 w-full z-[100] py-6 px-6 md:px-12 flex justify-between items-center bg-white/90 backdrop-blur-md border-b border-brand-green/10">
         <div class="text-brand-green font-heading font-extrabold text-2xl tracking-tighter">VISAKAA</div>
-        
-        <!-- Interactive Nav Buttons -->
         <ul class="flex gap-6 md:gap-12 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-gray-500">
             <li><a href="#hero" class="nav-link active" data-section="hero">Intro</a></li>
             <li><a href="#projects" class="nav-link" data-section="projects">Portfolio</a></li>
             <li><a href="#gardening" class="nav-link" data-section="gardening">Gardening</a></li>
             <li><a href="#contact" class="nav-link" data-section="contact">Enquiry</a></li>
         </ul>
-        
         <div class="hidden sm:block">
             <a href="#contact" class="bg-brand-green text-white px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-brand-dark transition-all">Connect</a>
         </div>
     </nav>
 
-    <!-- 2. HERO SECTION -->
-    <header id="hero" class="relative min-h-[100dvh] flex items-center justify-center bg-fixed bg-cover bg-center overflow-hidden pt-24" style="background-image: url('https://images.unsplash.com/photo-1541443131876-44b03de101c5?auto=format&fit=crop&w=1920&q=80');">
+    <header id="hero" class="hero-bg relative min-h-[100dvh] flex items-center justify-center overflow-hidden pt-24">
         <div class="absolute inset-0 bg-black/40"></div>
-        
         <div class="relative z-10 w-full max-w-6xl mx-auto px-6 flex flex-col items-center justify-center text-center">
             <div class="glass-hero p-10 md:p-24 rounded-[3rem] md:rounded-[4rem] w-full" data-aos="zoom-out" data-aos-duration="1200">
                 <div class="flex items-center justify-center gap-3 mb-8">
@@ -117,15 +41,12 @@
                     <span class="text-brand-green text-[10px] font-bold uppercase tracking-[0.4em]">Visakaa Builders Coimbatore</span>
                     <span class="w-10 h-[1px] bg-brand-green"></span>
                 </div>
-                
                 <h1 class="font-heading text-4xl sm:text-6xl md:text-8xl text-white font-extrabold mb-8 leading-[1.1] text-shadow-hero tracking-tighter">
                     WE BUILD YOUR<br><span class="text-brand-green">DREAM SPACES</span>
                 </h1>
-                
                 <p class="text-gray-200 text-lg md:text-2xl mb-12 font-light italic max-w-3xl mx-auto leading-relaxed">
                     Pioneering structural integrity and aesthetic innovation.
                 </p>
-                
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
                     <a href="#projects" class="px-10 py-4 bg-brand-green text-white font-bold rounded-full hover:scale-105 transition-all shadow-xl shadow-brand-green/30 flex items-center justify-center gap-2">
                         View Sites <i class="fas fa-chevron-right text-[10px]"></i>
@@ -135,7 +56,6 @@
         </div>
     </header>
 
-    <!-- 3. PROJECT PORTFOLIO (Z-PATTERN) -->
     <section id="projects" class="py-32 px-6 md:px-24 bg-gray-50 relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="mb-24 text-center lg:text-left" data-aos="fade-right">
@@ -144,7 +64,6 @@
                 <div class="w-24 h-2 bg-brand-green mt-8 rounded-full mx-auto lg:mx-0"></div>
             </div>
 
-            <!-- Project 1: Townhall -->
             <div class="glass-panel rounded-[3.5rem] overflow-hidden mb-24" data-aos="fade-up">
                 <div class="flex flex-col lg:flex-row items-stretch">
                     <div class="w-full lg:w-1/2 p-10 md:p-16 flex flex-col justify-center">
@@ -173,60 +92,9 @@
                     </div>
                 </div>
             </div>
-
-            <!-- Project 2: Emerald (Reverse) -->
-            <div class="glass-panel rounded-[3.5rem] overflow-hidden mb-24" data-aos="fade-up">
-                <div class="flex flex-col lg:flex-row-reverse items-stretch">
-                    <div class="w-full lg:w-1/2 p-10 md:p-16 flex flex-col justify-center">
-                        <div class="flex items-center gap-3 mb-6">
-                            <i class="fas fa-map-marker-alt text-brand-green"></i>
-                            <span class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Avinashi Road, Coimbatore</span>
-                        </div>
-                        <h3 class="font-heading text-4xl font-bold mb-6">Emerald Tech Plaza</h3>
-                        <p class="text-gray-500 mb-10 text-lg leading-relaxed">Strategically located IT park infrastructure. Engineered for high-load technical operations with smart grid utility management.</p>
-                        <div class="flex gap-4">
-                            <span class="px-6 py-2 bg-gray-100 rounded-full text-[10px] font-bold uppercase tracking-widest">Lease Ready</span>
-                        </div>
-                    </div>
-                    <div class="w-full lg:w-1/2 p-6 md:p-10 space-y-6 flex flex-col justify-center">
-                        <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800" class="rounded-3xl shadow-xl h-64 object-cover" alt="Emerald">
-                        <div class="video-wrapper">
-                            <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&mute=1&loop=1&playlist=dQw4w9WgXcQ&controls=0"></iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- 4. GARDENING LANDS -->
-    <section id="gardening" class="py-48 px-6 md:px-24 relative min-h-screen flex flex-col justify-center overflow-hidden">
-        <div class="max-w-7xl mx-auto w-full relative z-10">
-            <div class="text-center mb-24" data-aos="fade-down">
-                <span class="text-brand-green font-bold text-xs uppercase tracking-[0.4em] text-shadow-hero">Heritage Holdings</span>
-                <h2 class="font-heading text-5xl md:text-7xl font-extrabold text-white text-shadow-hero mt-6">Gardening Plots</h2>
-                <p class="text-white/80 text-lg md:text-2xl mt-6 max-w-2xl mx-auto font-medium text-shadow-hero">Premium arable holdings for sustainable cultivation.</p>
-                <div class="w-24 h-2 bg-brand-green mx-auto mt-10 rounded-full shadow-lg"></div>
-            </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div class="glass-panel p-10 rounded-[3rem] group" data-aos="flip-left">
-                    <h3 class="font-heading text-3xl font-bold mb-6 text-gray-900">Floral Residency</h3>
-                    <div class="rounded-3xl overflow-hidden h-64 mb-6 shadow-xl">
-                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Garden 1">
-                    </div>
-                </div>
-                <div class="glass-panel p-10 rounded-[3rem] group" data-aos="flip-right">
-                    <h3 class="font-heading text-3xl font-bold mb-6 text-gray-900">Green Valley Meadows</h3>
-                    <div class="rounded-3xl overflow-hidden h-64 mb-6 shadow-xl">
-                        <img src="https://images.unsplash.com/photo-1466692476868-aef1dfb1e735?auto=format&fit=crop&w=600" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Garden 2">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 5. CONTACT SECTION -->
     <section id="contact" class="py-32 px-6 md:px-24 bg-white relative z-10">
         <div class="max-w-7xl mx-auto">
             <div class="glass-panel rounded-[4rem] overflow-hidden shadow-2xl flex flex-col lg:flex-row" data-aos="zoom-in-up">
@@ -258,78 +126,6 @@
     </footer>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 1000, once: false });
-
-        // Scroll Progress
-        window.addEventListener('scroll', () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.getElementById("scroll-progress").style.width = scrolled + "%";
-        });
-
-        // Dual Cursor Logic with Mix-Blend-Mode Inversion
-        const dot = document.getElementById('cursor-dot');
-        const follower = document.getElementById('cursor-follower');
-        let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-            dot.style.left = mouseX + 'px';
-            dot.style.top = mouseY + 'px';
-        });
-
-        function animateCursor() {
-            followerX += (mouseX - followerX) * 0.12;
-            followerY += (mouseY - followerY) * 0.12;
-            follower.style.left = followerX + 'px';
-            follower.style.top = followerY + 'px';
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // Parallax Emerging Engine
-        window.addEventListener('scroll', () => {
-            const scrollY = window.scrollY;
-            const gardening = document.getElementById('gardening');
-            const bg = document.getElementById('flowerBg');
-            
-            if(gardening && bg) {
-                const trigger = gardening.offsetTop - window.innerHeight;
-                const end = gardening.offsetTop + gardening.offsetHeight;
-                
-                if(scrollY > trigger && scrollY < end) {
-                    const progress = (scrollY - trigger) / window.innerHeight;
-                    bg.style.opacity = Math.max(0, Math.min(0.95, progress));
-                } else if (scrollY < trigger) {
-                    bg.style.opacity = 0;
-                }
-            }
-        });
-
-        // ScrollSpy Engine for Glowing Nav
-        const sections = document.querySelectorAll('header, section');
-        const navLinks = document.querySelectorAll('.nav-link');
-
-        window.addEventListener('scroll', () => {
-            let current = "";
-            sections.forEach((section) => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
-                if (pageYOffset >= sectionTop - 150) {
-                    current = section.getAttribute("id");
-                }
-            });
-
-            navLinks.forEach((link) => {
-                link.classList.remove("active");
-                if (link.getAttribute("data-section") === current) {
-                    link.classList.add("active");
-                }
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
