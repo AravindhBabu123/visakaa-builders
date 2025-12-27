@@ -1,30 +1,17 @@
-// Tailwind Configuration
-tailwind.config = {
-    theme: {
-        extend: {
-            colors: {
-                brand: { green: '#00B100', dark: '#006400', light: '#e6f7e6' }
-            },
-            fontFamily: { sans: ['Poppins', 'sans-serif'], heading: ['Montserrat', 'sans-serif'] }
-        }
-    }
-}
-
-// Initialize AOS
+// 1. Initialize Animations
 document.addEventListener('DOMContentLoaded', () => {
-    AOS.init({ duration: 1000, once: false });
+    AOS.init({
+        duration: 1000,
+        once: false,
+        mirror: true,
+        offset: 50
+    });
+    
+    // Refresh AOS specifically for the dynamic sections
+    window.addEventListener('scroll', AOS.refresh);
 });
 
-// Scroll Progress Bar
-window.addEventListener('scroll', () => {
-    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    const scrolled = (winScroll / height) * 100;
-    const progressBar = document.getElementById("scroll-progress");
-    if(progressBar) progressBar.style.width = scrolled + "%";
-});
-
-// Dual Cursor Logic
+// 2. Dual Cursor Engine
 const dot = document.getElementById('cursor-dot');
 const follower = document.getElementById('cursor-follower');
 let mouseX = 0, mouseY = 0, followerX = 0, followerY = 0;
@@ -49,26 +36,32 @@ function animateCursor() {
 }
 animateCursor();
 
-// Parallax/Gardening Background Fade
+// 3. Parallax Transition for Gardening Section
 window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
     const gardening = document.getElementById('gardening');
     const bg = document.getElementById('flowerBg');
-    
+    const progress = document.getElementById("scroll-progress");
+
+    // Scroll Progress Calculation
+    const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    if(progress) progress.style.width = (winScroll / height) * 100 + "%";
+
+    // Parallax logic
     if(gardening && bg) {
         const trigger = gardening.offsetTop - window.innerHeight;
         const end = gardening.offsetTop + gardening.offsetHeight;
         
-        if(scrollY > trigger && scrollY < end) {
-            const progress = (scrollY - trigger) / window.innerHeight;
-            bg.style.opacity = Math.max(0, Math.min(0.95, progress));
-        } else if (scrollY < trigger) {
+        if(window.scrollY > trigger && window.scrollY < end) {
+            const opacityProgress = (window.scrollY - trigger) / window.innerHeight;
+            bg.style.opacity = Math.min(0.95, opacityProgress);
+        } else if (window.scrollY < trigger) {
             bg.style.opacity = 0;
         }
     }
 });
 
-// ScrollSpy Nav Link Active State
+// 4. ScrollSpy for Navigation
 const sections = document.querySelectorAll('header, section');
 const navLinks = document.querySelectorAll('.nav-link');
 
@@ -76,7 +69,7 @@ window.addEventListener('scroll', () => {
     let current = "";
     sections.forEach((section) => {
         const sectionTop = section.offsetTop;
-        if (window.pageYOffset >= sectionTop - 150) {
+        if (window.pageYOffset >= sectionTop - 200) {
             current = section.getAttribute("id");
         }
     });
